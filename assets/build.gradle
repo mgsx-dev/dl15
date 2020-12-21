@@ -21,6 +21,15 @@ eclipse.project {
     name = appName + "-assets"
 }
 
+task buildAssets(group: 'gdx'){}
+
+def packingTask = gdxAtlasPack("$buildDir/sprites", "../android/assets/spritesheet")
+packingTask.dependsOn << gdxRawCopy("src/sprites", "$buildDir/sprites")
+
+buildAssets.dependsOn << packingTask
+
+
+
 /** usage example :
 
 task buildAssets(group: 'gdx'){}

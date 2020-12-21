@@ -2,6 +2,8 @@ package net.mgsx.dl15.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Circle;
@@ -11,7 +13,13 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import net.mgsx.dl15.assets.Assets;
+import net.mgsx.dl15.assets.Shaders;
+
 public class World {
+	public static boolean drawDebug = false;
+	
+	
 	public final Array<Ship> ships = new Array<Ship>();
 	public final Array<Bullet> bullets = new Array<Bullet>();
 	private ShapeRenderer shapes;
@@ -21,13 +29,24 @@ public class World {
 	public Rectangle screenBounds = new Rectangle();
 	public final Array<GameSequence> sequences = new Array<GameSequence>();
 	public final Array<Enemy> enemies = new Array<Enemy>();
+	private SpriteBatch batch;
+	private float time;
+	private final Array<Explosion> explosions = new Array<Explosion>();
+
+	private ShaderProgram shader;
 	
 	public World() {
 		shapes = new ShapeRenderer();
-		viewport = new FitViewport(60, 30);
+		viewport = new FitViewport(30, 60);
+		batch = new SpriteBatch();
+		shader = Shaders.createDefaultShader();
+		batch.setShader(shader);
 	}
 	
 	public void update(float delta){
+		
+		time += delta;
+		
 		boolean sequenceOver = true;
 		for(int i=0 ; i<sequences.size ; i++){
 			if(!sequences.get(i).update(delta)){
@@ -54,6 +73,9 @@ public class World {
 						e.damage(ship.module, delta);
 					}
 				}
+				if(ship.hit(e.bounds)){
+					ship.damage();
+				}
 			}
 			
 			
@@ -75,6 +97,19 @@ public class World {
 					}
 				}
 			}
+			if((bullet.bulletBits & Bullet.ENEMY_BIT) != 0){
+				for(Ship ship : ships){
+					if(ship.hit(c)){
+						ship.damage();
+						bullet.alive = false;
+					}
+					if(ship.module != null){
+						if(ship.module.position.dst2(bullet.position) < ship.module.radius*ship.module.radius + bullet.radius*bullet.radius){
+							bullet.alive = false;
+						}
+					}
+				}
+			}
 			
 			if(!screenBounds.contains(c)){
 				bullet.alive = false;
@@ -85,24 +120,62 @@ public class World {
 				Bullet.pool.free(bullet);;
 			}
 		}
+		
+		for(int i=explosions.size-1 ; i>=0 ; i--){
+			Explosion e = explosions.get(i);
+			e.update(this, delta);
+			if(!e.alive){
+				explosions.swap(i, explosions.size-1);
+				explosions.pop();
+			}
+		}
 	}
 
 
 	public void draw() {
-		viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		shapes.setProjectionMatrix(viewport.getCamera().combined);
-		shapes.begin(ShapeType.Line);
-		for(Ship ship : ships){
-			drawShip(ship);
-			if(ship.module != null) drawModule(ship.module);
+		viewport.update(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight());
+		batch.setColor(Color.BLACK);
+		batch.setProjectionMatrix(viewport.getCamera().combined);
+		batch.begin();
+		
+		float t = -time * .03f;
+		batch.draw(Assets.i.bgNatural, 
+				-viewport.getWorldWidth()/2, -viewport.getWorldHeight()/2, viewport.getWorldWidth(), viewport.getWorldHeight(),
+				0, t+1, 1, t);
+		
+		for(Enemy e : enemies){
+			e.sprite.draw(batch);
 		}
-		for(Enemy enemy : enemies){
-			drawEnemy(enemy);
+		for(Ship ship : ships){
+			ship.sprite.draw(batch);
+			if(ship.module != null) ship.module.sprite.draw(batch);
 		}
 		for(Bullet bullet : bullets){
-			drawBullet(bullet);
+			bullet.sprite.draw(batch);
 		}
-		shapes.end();
+		for(Explosion e : explosions){
+			e.sprite.draw(batch);
+		}
+		
+		batch.end();
+		
+		drawDebug = false;
+		
+		if(drawDebug){
+			shapes.setProjectionMatrix(viewport.getCamera().combined);
+			shapes.begin(ShapeType.Line);
+			for(Ship ship : ships){
+				drawShip(ship);
+				if(ship.module != null) drawModule(ship.module);
+			}
+			for(Enemy enemy : enemies){
+				drawEnemy(enemy);
+			}
+			for(Bullet bullet : bullets){
+				drawBullet(bullet);
+			}
+			shapes.end();
+		}
 	}
 
 
@@ -137,7 +210,17 @@ public class World {
 		b.bulletBits = bulletBits;
 		b.alive = true;
 		b.radius = .5f;
+		b.angle = b.velocity.angleDeg();
 		bullets.add(b);
+	}
+
+	public void emitExplosion(float x, float y, float radius) {
+		Explosion b = Explosion.pool.obtain();
+		b.position.set(x, y);
+		b.radius = radius;
+		b.time = 0;
+		b.alive = true;
+		explosions.add(b);
 	}
 
 	public void addSequence(GameSequence s) {

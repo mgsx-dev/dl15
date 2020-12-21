@@ -2,13 +2,18 @@ package net.mgsx.dl15.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+
+import net.mgsx.dl15.assets.Assets;
 
 public class Ship extends Entity {
 	public Module module;
 
-	public final Rectangle bounds = new Rectangle(-2, -1, 4, 2);
+	public final Rectangle bounds = new Rectangle(-1, -2, 2, 4);
+	public final static Rectangle r = new Rectangle();
 
 	public final Vector2 velocity = new Vector2();
 
@@ -18,6 +23,13 @@ public class Ship extends Entity {
 
 	private float shootFrequency = 5;
 	
+	private float flashTimeout;
+	public boolean flashing;
+	
+	public Ship() {
+		super();
+		sprite.setRegion(Assets.i.atlas.createSprite("ship-blue-1"));
+	}
 	
 	@Override
 	public void update(World world, float delta) {
@@ -82,10 +94,43 @@ public class Ship extends Entity {
 			if(shootTimeout < 0){
 				shootTimeout = 1f / shootFrequency;
 				shootFrequency = 10;
-				world.emitBullet(Bullet.SHIP_BIT, position.x, position.y, 60f, 0f);
+				world.emitBullet(Bullet.SHIP_BIT | Bullet.LEVEL_2, position.x, position.y, 0, 60f);
 			}
 		}else{
 			shootTimeout = 0;
+		}
+		
+		sprite.setBounds(position.x - bounds.height/2, position.y - bounds.height/2, bounds.height, bounds.height);
+		
+		flashTimeout -= delta;
+		if(flashTimeout > 0){
+			flashing = (flashTimeout * 10f) % 1f < .4f;
+		}else{
+			flashing = false;
+		}
+		sprite.setColor(flashing ? Color.RED : Color.BLACK);
+		
+		r.set(bounds);
+		r.x += position.x;
+		r.y += position.y;
+	}
+
+	public boolean hit(Circle c) {
+		float r = 1;
+		if(position.dst2(c.x, c.y) < c.radius*c.radius + r*r){
+			return true;
+		}
+		return false;
+	}
+	public boolean hit(Rectangle rect) {
+		return r.overlaps(rect);
+	}
+
+
+	public void damage() {
+		if(flashTimeout < 0){
+			flashTimeout = 2;
+			// TODO damages
 		}
 	}
 	

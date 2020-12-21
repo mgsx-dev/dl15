@@ -1,0 +1,174 @@
+
+spritesheet.png
+size: 512,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Rotor_png_processed
+  rotate: false
+  xy: 2, 178
+  size: 65, 64
+  orig: 65, 64
+  offset: 0, 0
+  index: -1
+en-bullet-1
+  rotate: false
+  xy: 335, 103
+  size: 11, 11
+  orig: 11, 11
+  offset: 0, 0
+  index: -1
+en-bullet-2
+  rotate: false
+  xy: 12, 33
+  size: 11, 11
+  orig: 11, 11
+  offset: 0, 0
+  index: -1
+en-bullet-3
+  rotate: false
+  xy: 413, 231
+  size: 11, 11
+  orig: 11, 11
+  offset: 0, 0
+  index: -1
+en-bullet-4
+  rotate: false
+  xy: 335, 90
+  size: 11, 11
+  orig: 11, 11
+  offset: 0, 0
+  index: -1
+en-red-a-1
+  rotate: false
+  xy: 203, 112
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+en-red-a-2
+  rotate: false
+  xy: 270, 178
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+en-red-a-3
+  rotate: false
+  xy: 203, 46
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+exp1
+  rotate: false
+  xy: 2, 112
+  size: 65, 64
+  orig: 65, 64
+  offset: 0, 0
+  index: -1
+exp2
+  rotate: false
+  xy: 69, 178
+  size: 65, 64
+  orig: 65, 64
+  offset: 0, 0
+  index: -1
+exp3
+  rotate: false
+  xy: 2, 46
+  size: 65, 64
+  orig: 65, 64
+  offset: 0, 0
+  index: -1
+exp4
+  rotate: false
+  xy: 69, 112
+  size: 65, 64
+  orig: 65, 64
+  offset: 0, 0
+  index: -1
+exp5
+  rotate: false
+  xy: 136, 178
+  size: 65, 64
+  orig: 65, 64
+  offset: 0, 0
+  index: -1
+exp6
+  rotate: false
+  xy: 69, 46
+  size: 65, 64
+  orig: 65, 64
+  offset: 0, 0
+  index: -1
+exp7
+  rotate: false
+  xy: 136, 112
+  size: 65, 64
+  orig: 65, 64
+  offset: 0, 0
+  index: -1
+exp8
+  rotate: false
+  xy: 203, 178
+  size: 65, 64
+  orig: 65, 64
+  offset: 0, 0
+  index: -1
+exp9
+  rotate: false
+  xy: 136, 46
+  size: 65, 64
+  orig: 65, 64
+  offset: 0, 0
+  index: -1
+module
+  rotate: false
+  xy: 335, 116
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+ship-blue-1
+  rotate: false
+  xy: 269, 112
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+ship-blue-2
+  rotate: false
+  xy: 336, 178
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+ship-blue-3
+  rotate: false
+  xy: 269, 46
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+shot-blue-lg
+  rotate: false
+  xy: 2, 19
+  size: 8, 25
+  orig: 8, 25
+  offset: 0, 0
+  index: -1
+shot-blue-md
+  rotate: false
+  xy: 402, 223
+  size: 9, 19
+  orig: 9, 19
+  offset: 0, 0
+  index: -1
+shot-blue-sm
+  rotate: false
+  xy: 2, 2
+  size: 6, 15
+  orig: 6, 15
+  offset: 0, 0
+  index: -1

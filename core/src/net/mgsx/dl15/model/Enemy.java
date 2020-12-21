@@ -1,8 +1,11 @@
 package net.mgsx.dl15.model;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+
+import net.mgsx.dl15.assets.Assets;
 
 public class Enemy extends Entity {
 
@@ -14,14 +17,18 @@ public class Enemy extends Entity {
 	public boolean flashing;
 	public float energy;
 	private final static Rectangle r = new Rectangle();
+	private float shotTimeout = 3;
 	
 	@Override
 	public void update(World world, float delta) {
 		
-		if(energy <= 0) alive = false;
+		if(energy <= 0){
+			alive = false;
+			world.emitExplosion(position.x, position.y, 4f);
+		}
 		
-		position.x -= delta * 10;
-		if(position.x + width/2 < world.screenBounds.x){
+		position.y -= delta * 10;
+		if(position.y + height/2 < world.screenBounds.y){
 			alive = false;
 		}
 		bounds.set(position.x-width/2, position.y-height/2, width, height);
@@ -31,6 +38,24 @@ public class Enemy extends Entity {
 			flashing = (flashTimeout * 30f) % 1f < .4f;
 		}else{
 			flashing = false;
+		}
+		
+		shotTimeout -= delta;
+		if(shotTimeout < 0){
+			shotTimeout = 1;
+			Vector2 d = world.ships.first().position.cpy().sub(position).nor().scl(5f);
+			world.emitBullet(Bullet.ENEMY_BIT, position.x, position.y, d.x, d.y);
+		}
+		
+		sprite.setRegion(Assets.i.enFighters[0]);
+		float sph = height * 2;
+		float spw = sph * (float)sprite.getRegionWidth() / (float)sprite.getRegionHeight();
+		sprite.setBounds(position.x-spw/2, position.y, spw, sph);
+		
+		if(flashing){
+			sprite.setColor(Color.WHITE);
+		}else{
+			sprite.setColor(Color.BLACK);
 		}
 	}
 
