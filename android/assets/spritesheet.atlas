@@ -1,173 +1,194 @@
 
 spritesheet.png
-size: 512,256
+size: 1024,256
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 Rotor_png_processed
   rotate: false
-  xy: 2, 178
+  xy: 242, 185
   size: 65, 64
   orig: 65, 64
   offset: 0, 0
   index: -1
+car
+  rotate: false
+  xy: 2, 15
+  size: 51, 91
+  orig: 51, 91
+  offset: 0, 0
+  index: -1
 en-bullet-1
   rotate: false
-  xy: 335, 103
+  xy: 2, 2
   size: 11, 11
   orig: 11, 11
   offset: 0, 0
   index: -1
 en-bullet-2
   rotate: false
-  xy: 12, 33
+  xy: 775, 238
   size: 11, 11
   orig: 11, 11
   offset: 0, 0
   index: -1
 en-bullet-3
   rotate: false
-  xy: 413, 231
+  xy: 65, 29
   size: 11, 11
   orig: 11, 11
   offset: 0, 0
   index: -1
 en-bullet-4
   rotate: false
-  xy: 335, 90
+  xy: 133, 95
   size: 11, 11
   orig: 11, 11
   offset: 0, 0
   index: -1
 en-red-a-1
   rotate: false
-  xy: 203, 112
+  xy: 510, 119
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 en-red-a-2
   rotate: false
-  xy: 270, 178
+  xy: 577, 185
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 en-red-a-3
   rotate: false
-  xy: 203, 46
+  xy: 576, 119
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 exp1
   rotate: false
-  xy: 2, 112
+  xy: 55, 42
   size: 65, 64
   orig: 65, 64
   offset: 0, 0
   index: -1
 exp2
   rotate: false
-  xy: 69, 178
+  xy: 242, 119
   size: 65, 64
   orig: 65, 64
   offset: 0, 0
   index: -1
 exp3
   rotate: false
-  xy: 2, 46
+  xy: 309, 185
   size: 65, 64
   orig: 65, 64
   offset: 0, 0
   index: -1
 exp4
   rotate: false
-  xy: 69, 112
+  xy: 309, 119
   size: 65, 64
   orig: 65, 64
   offset: 0, 0
   index: -1
 exp5
   rotate: false
-  xy: 136, 178
+  xy: 376, 185
   size: 65, 64
   orig: 65, 64
   offset: 0, 0
   index: -1
 exp6
   rotate: false
-  xy: 69, 46
+  xy: 376, 119
   size: 65, 64
   orig: 65, 64
   offset: 0, 0
   index: -1
 exp7
   rotate: false
-  xy: 136, 112
+  xy: 443, 185
   size: 65, 64
   orig: 65, 64
   offset: 0, 0
   index: -1
 exp8
   rotate: false
-  xy: 203, 178
+  xy: 443, 119
   size: 65, 64
   orig: 65, 64
   offset: 0, 0
   index: -1
 exp9
   rotate: false
-  xy: 136, 46
+  xy: 510, 185
   size: 65, 64
   orig: 65, 64
   offset: 0, 0
   index: -1
 module
   rotate: false
-  xy: 335, 116
+  xy: 708, 123
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
+potiron
+  rotate: false
+  xy: 2, 108
+  size: 160, 141
+  orig: 160, 141
+  offset: 0, 0
+  index: -1
+sandwich
+  rotate: false
+  xy: 164, 111
+  size: 76, 138
+  orig: 76, 138
+  offset: 0, 0
+  index: -1
 ship-blue-1
   rotate: false
-  xy: 269, 112
+  xy: 643, 185
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 ship-blue-2
   rotate: false
-  xy: 336, 178
+  xy: 642, 119
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 ship-blue-3
   rotate: false
-  xy: 269, 46
+  xy: 709, 185
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 shot-blue-lg
   rotate: false
-  xy: 2, 19
+  xy: 55, 15
   size: 8, 25
   orig: 8, 25
   offset: 0, 0
   index: -1
 shot-blue-md
   rotate: false
-  xy: 402, 223
+  xy: 122, 87
   size: 9, 19
   orig: 9, 19
   offset: 0, 0
   index: -1
 shot-blue-sm
   rotate: false
-  xy: 2, 2
+  xy: 122, 70
   size: 6, 15
   orig: 6, 15
   offset: 0, 0

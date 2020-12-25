@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import net.mgsx.dl15.assets.Assets;
 import net.mgsx.dl15.assets.Shaders;
+import net.mgsx.dl15.utils.MeanWindow;
 
 public class World {
 	public static boolean drawDebug = false;
@@ -34,6 +35,14 @@ public class World {
 	private final Array<Explosion> explosions = new Array<Explosion>();
 
 	private ShaderProgram shader;
+
+	
+	public float score = 0;
+	public float best = 0;
+	public float rate = 0;
+	public float bestRate = 0;
+
+	public MeanWindow window = new MeanWindow(10);
 	
 	public World() {
 		shapes = new ShapeRenderer();
@@ -74,7 +83,7 @@ public class World {
 					}
 				}
 				if(ship.hit(e.bounds)){
-					ship.damage();
+					ship.damage(this);
 				}
 			}
 			
@@ -100,7 +109,7 @@ public class World {
 			if((bullet.bulletBits & Bullet.ENEMY_BIT) != 0){
 				for(Ship ship : ships){
 					if(ship.hit(c)){
-						ship.damage();
+						ship.damage(this);
 						bullet.alive = false;
 					}
 					if(ship.module != null){
@@ -129,6 +138,14 @@ public class World {
 				explosions.pop();
 			}
 		}
+		
+		window.update(time);
+		
+		rate = window.value;
+		if(rate > bestRate) bestRate = rate;
+		
+		score = window.total;
+		if(score > best) best = score;
 	}
 
 
@@ -226,5 +243,13 @@ public class World {
 	public void addSequence(GameSequence s) {
 		sequences.add(s);
 		s.create(this);
+	}
+
+	public void pushScore(Enemy enemy) {
+		window.put(time, enemy.points);
+	}
+
+	public void resetScore() {
+		window.clear();
 	}
 }

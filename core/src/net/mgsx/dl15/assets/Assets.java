@@ -2,10 +2,12 @@ package net.mgsx.dl15.assets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class Assets {
 	public static Assets i;
@@ -16,6 +18,8 @@ public class Assets {
 	public TextureRegion [] enFighters;
 	public TextureRegion [] explosions;
 	public AtlasRegion moduleSprite;
+	public TextureRegion [] scenes;
+	public Skin skin;
 	
 	public Assets() {
 		bgNatural = new Texture(Gdx.files.internal("sprites/bg-natural.png"));
@@ -47,5 +51,12 @@ public class Assets {
 			explosions[i] = atlas.findRegion("exp" + (i+1));
 		}
 		
+		scenes = new TextureRegion[9];
+		for(int i=0 ; i<9 ; i++){
+			scenes[i] = new TextureRegion(new Texture(Gdx.files.internal("scenes/scene" + (i+1) + ".png")));
+			scenes[i].getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		}
+		
+		skin = new Skin(Gdx.files.internal("skins/game-skin.json"));
 	}
 }

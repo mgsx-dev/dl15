@@ -127,10 +127,10 @@ public class Ship extends Entity {
 	}
 
 
-	public void damage() {
+	public void damage(World world) {
 		if(flashTimeout < 0){
 			flashTimeout = 2;
-			// TODO damages
+			world.resetScore();
 		}
 	}
 	

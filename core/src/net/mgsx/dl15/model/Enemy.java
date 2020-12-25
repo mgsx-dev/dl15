@@ -9,15 +9,27 @@ import net.mgsx.dl15.assets.Assets;
 
 public class Enemy extends Entity {
 
-	public int width;
-	public int height;
+	public float width;
+	public float height;
 	public final Vector2 direction = new Vector2();
 	public final Rectangle bounds = new Rectangle();
 	private float flashTimeout;
 	public boolean flashing;
 	public float energy;
 	private final static Rectangle r = new Rectangle();
-	private float shotTimeout = 3;
+	protected float shotTimeout = 3;
+	public float spriteBase;
+	public float spriteOffsetX;
+	public float spriteOffsetY;
+	public float points = 100;
+	
+	public Enemy() {
+		sprite.setRegion(Assets.i.enFighters[0]);
+	}
+	
+	public void init(){
+		
+	}
 	
 	@Override
 	public void update(World world, float delta) {
@@ -25,6 +37,7 @@ public class Enemy extends Entity {
 		if(energy <= 0){
 			alive = false;
 			world.emitExplosion(position.x, position.y, 4f);
+			world.pushScore(this);
 		}
 		
 		position.y -= delta * 10;
@@ -40,17 +53,9 @@ public class Enemy extends Entity {
 			flashing = false;
 		}
 		
-		shotTimeout -= delta;
-		if(shotTimeout < 0){
-			shotTimeout = 1;
-			Vector2 d = world.ships.first().position.cpy().sub(position).nor().scl(5f);
-			world.emitBullet(Bullet.ENEMY_BIT, position.x, position.y, d.x, d.y);
-		}
-		
-		sprite.setRegion(Assets.i.enFighters[0]);
-		float sph = height * 2;
+		float sph = spriteBase;
 		float spw = sph * (float)sprite.getRegionWidth() / (float)sprite.getRegionHeight();
-		sprite.setBounds(position.x-spw/2, position.y, spw, sph);
+		sprite.setBounds(position.x + spriteOffsetX, position.y + spriteOffsetY, spw, sph);
 		
 		if(flashing){
 			sprite.setColor(Color.WHITE);
