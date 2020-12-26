@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -46,12 +47,21 @@ public class GameScreen extends StageScreen {
 		
 		stage.addActor(t);
 		
-		spawn(null);
-		spawn(null);
-		spawn(null);
+		stage.addAction(Actions.repeat(3, 
+			Actions.sequence(
+				Actions.delay(2),
+				Actions.run(new Runnable() {
+					@Override
+					public void run() {
+						spawn(null);
+					}
+				})
+			)));
+		
 		
 		Table scoreTable = new Table();
 		scoreTable.setFillParent(true);
+		
 		
 		scoreTable.add(labelScore = new Label("", Assets.i.skin)).expand().top().padRight(320);
 		
@@ -61,11 +71,17 @@ public class GameScreen extends StageScreen {
 		formatScore(0f, 0f, 0f, 0f);
 		
 		stage.addActor(scoreTable);
+		
+		Label zzLabel = new Label("...zZz...zZz...", Assets.i.skin);
+		zzLabel.pack();
+		zzLabel.setPosition(320 + 160, 20, Align.center);
+		stage.addActor(zzLabel);
 	}
 	
 	private void formatScore(float score, float best, float rate, float bestRate) {
-		labelScore.setText("Score " + MathUtils.round(score) + " Best " + MathUtils.round(best) + "\n" +
-				"Rate " + MathUtils.round(rate) + " Best " + MathUtils.round(bestRate));
+//		labelScore.setText("Score " + MathUtils.round(score) + " Best " + MathUtils.round(best) + "\n" +
+//				"Rate " + MathUtils.round(rate) + " Best " + MathUtils.round(bestRate));
+		labelScore.setText("Score Rate " + MathUtils.round(rate) + " Best " + MathUtils.round(bestRate));
 	}
 
 	private void spawn(TextButton bt){
@@ -90,8 +106,10 @@ public class GameScreen extends StageScreen {
 		bt.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				spawn(newBT);
-				spt.spawn(world);
+				if(!paused){
+					spawn(newBT);
+					spt.spawn(world);
+				}
 			}
 		});
 		
@@ -115,6 +133,8 @@ public class GameScreen extends StageScreen {
 		world.draw();
 		
 		viewport.apply();
-		super.render(delta);
+		
+		stage.act(delta);
+		stage.draw();
 	}
 }

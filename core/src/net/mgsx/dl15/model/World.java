@@ -46,7 +46,7 @@ public class World {
 	
 	public World() {
 		shapes = new ShapeRenderer();
-		viewport = new FitViewport(30, 60);
+		viewport = new FitViewport(32, 64);
 		batch = new SpriteBatch();
 		shader = Shaders.createDefaultShader();
 		batch.setShader(shader);
@@ -151,6 +151,9 @@ public class World {
 
 	public void draw() {
 		viewport.update(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight());
+		viewport.setScreenX((int)(viewport.getScreenX() * 1.5f)); // XXX hack to center viewport (doesn't really work)
+		viewport.apply();
+		
 		batch.setColor(Color.BLACK);
 		batch.setProjectionMatrix(viewport.getCamera().combined);
 		batch.begin();

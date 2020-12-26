@@ -51,10 +51,10 @@ public class Ship extends Entity {
 		else {
 			velocity.y = 0;
 		}
-		if(Gdx.input.isKeyJustPressed(Input.Keys.X)){
+		if(Gdx.input.isKeyJustPressed(Input.Keys.C)){
 			if(module != null) module.locked = !module.locked;
 		}
-		if(Gdx.input.isKeyPressed(Input.Keys.W)){
+		if(Gdx.input.isKeyPressed(Input.Keys.X)){
 			if(module != null) module.shooting = true;
 			shooting = true;
 		}else{
