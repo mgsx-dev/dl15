@@ -26,7 +26,6 @@ public class SpawnTypes {
 			float xmin = world.screenBounds.x + e.width/2;
 			float xmax = world.screenBounds.x + world.screenBounds.width - e.width/2;
 			float px = MathUtils.random(xmin, xmax);
-			px = xmax;
 			
 			e.position.set(px, 
 					world.screenBounds.y + world.screenBounds.height  + e.height);
