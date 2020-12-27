@@ -161,7 +161,7 @@ public class World {
 		float t = -time * .03f;
 		batch.draw(Assets.i.bgNatural, 
 				-viewport.getWorldWidth()/2, -viewport.getWorldHeight()/2, viewport.getWorldWidth(), viewport.getWorldHeight(),
-				0, t+1, 1, t);
+				0, t+1, 205f/256f, t);
 		
 		for(Enemy e : enemies){
 			e.sprite.draw(batch);
@@ -230,7 +230,7 @@ public class World {
 		b.bulletBits = bulletBits;
 		b.alive = true;
 		b.radius = .5f;
-		b.angle = b.velocity.angleDeg();
+		b.angle = b.velocity.angle();
 		bullets.add(b);
 	}
 

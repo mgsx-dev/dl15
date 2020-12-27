@@ -39,7 +39,7 @@ public class Module extends Entity {
 		}
 		sprite.setBounds(position.x-radius, position.y-radius, radius*2, radius*2);
 		sprite.setOriginCenter();
-		sprite.setRotation(shootDirection.angleDeg()-90);
+		sprite.setRotation(shootDirection.angle()-90);
 	}
 
 }
